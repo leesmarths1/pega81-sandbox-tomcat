@@ -1,0 +1,13 @@
+gcloud container clusters get-credentials pega-81-sandbox --zone europe-west1-b --project hs-it-pega-sandbox
+
+gcloud auth configure-docker
+gcloud container images delete eu.gcr.io/hs-it-pega-sandbox/pega81-sandbox-tomcat:latest
+docker rm eu.gcr.io/hs-it-pega-sandbox/pega81-sandbox-tomcat:latest
+docker rmi eu.gcr.io/hs-it-pega-sandbox/pega81-sandbox-tomcat:latest
+
+
+docker tag pega81-sandbox-tomcat:latest eu.gcr.io/hs-it-pega-sandbox/pega81-sandbox-tomcat:latest
+docker push eu.gcr.io/hs-it-pega-sandbox/pega81-sandbox-tomcat:latest
+
+
+kubectl apply -f F:\GitHub\pega81-sandbox-tomcat\DeployTomCatgoogle.yaml
